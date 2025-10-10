@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5347489568814481098}
   - component: {fileID: 6775356123577414149}
   - component: {fileID: 5088752644584319718}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ItemPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,9 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d7db978bd413546aeff9a080e5e4b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSO: {fileID: 11400000, guid: deae144f56751b649bdc1f2cd0e5c880, type: 2}
-  selectedBlocks: []
-  maxSelectedCnt: 0
+  weaponList: {fileID: 0}
 --- !u!50 &5088752644584319718
 Rigidbody2D:
   serializedVersion: 5

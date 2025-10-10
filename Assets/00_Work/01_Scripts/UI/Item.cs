@@ -24,7 +24,6 @@ namespace Work.Scripts.UI
             rectTrm.sizeDelta = new Vector2(100 * itemSO.sizeX, 100 * itemSO.sizeY);
             boxCollider.size = new Vector2(100 * itemSO.sizeX, 100 * itemSO.sizeY) - new Vector2(50,50);
             image.sprite = itemSO.sprite;
-            transform.SetParent(transform.parent.parent);
         }
 
         private void Update()
@@ -36,9 +35,7 @@ namespace Work.Scripts.UI
                     transform.eulerAngles += new Vector3(0, 0, 90);
                 }
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                mousePos.x *= 96f;
-                mousePos.y *= 90f;
-                rectTrm.anchoredPosition = mousePos;
+                rectTrm.transform.position = mousePos;
             }
         }
 
@@ -51,7 +48,16 @@ namespace Work.Scripts.UI
         private void OnMouseUp()
         {
             _isSelected = false;
-            rectTrm.anchoredPosition = new Vector2((int)(rectTrm.anchoredPosition.x / 100) * 100, (int)(rectTrm.anchoredPosition.y / 100) * 100);
+            RectTransform parent = transform.parent.GetComponent<RectTransform>();
+            int minX = (int)(-250 + Mathf.Round(itemSO.sizeX * 100)/2);
+            int maxX = (int)(250 - Mathf.Round(itemSO.sizeX * 100) / 2);
+            int minY = (int)(-250 + Mathf.Round(itemSO.sizeY * 100) / 2);
+            int maxY = (int)(250 - Mathf.Round(itemSO.sizeY * 100) / 2);
+            
+            int X = Mathf.Clamp(((int)(rectTrm.anchoredPosition.x / 100)) * 100, ((transform.eulerAngles.z / 90) % 2) == 0 ? minX : minY, ((transform.eulerAngles.z / 90) % 2) == 0 ? maxX : maxY);
+            int Y = Mathf.Clamp(((int)(rectTrm.anchoredPosition.y / 100)) * 100, ((transform.eulerAngles.z / 90) % 2) == 0 ? minY : minX, ((transform.eulerAngles.z / 90) % 2) == 0 ? maxY : maxX);
+            rectTrm.anchoredPosition = new Vector2(X + ((transform.eulerAngles.z / 90) % 2) != 0 ? -50 : 0, Y - 5 + ((transform.eulerAngles.z / 90) % 2) == 0 ? -50 : 0); 
+
         }
 
         
