@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class EntityAnimator : MonoBehaviour
+namespace Work.Scripts.Entities
 {
-    private Animator _animator;
-    private string _paramName;
-    private void Awake()
+    public class EntityAnimator : MonoBehaviour
     {
-        _animator = GetComponent<Animator>();
-    }
+        private Animator _animator;
+        private string _paramName;
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
 
-    public void SetBool(string name, bool v)
-    {
-        _paramName = name;
-        _animator.SetBool(name, v);
-    }
-    public void SetSkillNum(int v) => _animator.SetInteger("SKILLNUM", v);
-    public void EndAnimation()
-    {
-        _animator.SetBool(_paramName, false);
-        _paramName = "";
-        _animator.SetInteger("SKILLNUM", 0);
+        public void SetBool(string name, bool v)
+        {
+            _paramName = name;
+            _animator.SetBool(name, v);
+        }
+        public void SetSkillNum(int v) => _animator.SetInteger("SKILLNUM", v);
+        public void EndAnimation()
+        {
+            _animator.SetBool(_paramName, false);
+            _paramName = "";
+            _animator.SetInteger("SKILLNUM", 0);
+        }
     }
 }

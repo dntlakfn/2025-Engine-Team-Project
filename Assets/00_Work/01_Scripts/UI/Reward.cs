@@ -22,6 +22,6 @@ namespace Work.Scripts.UI
             transform.DOMoveY(-showYPos, moveDuration);
         }
 
-
+        
     }
 }

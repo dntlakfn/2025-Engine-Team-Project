@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2507076035748304070}
   - component: {fileID: 8061894052228604632}
   - component: {fileID: 5347489568814481098}
-  - component: {fileID: 6775356123577414149}
   - component: {fileID: 5088752644584319718}
+  - component: {fileID: 8973243733802803219}
   m_Layer: 6
   m_Name: ItemPrefab
   m_TagString: Untagged
@@ -108,7 +108,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -124,19 +124,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 100, y: 400}
   m_EdgeRadius: 0
---- !u!114 &6775356123577414149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7600994481137571695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d7db978bd413546aeff9a080e5e4b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponList: {fileID: 0}
 --- !u!50 &5088752644584319718
 Rigidbody2D:
   serializedVersion: 5
@@ -145,7 +132,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7600994481137571695}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -164,3 +151,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8973243733802803219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600994481137571695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f4b03b83d122a49b99fb72c30f014c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponList: {fileID: 11400000, guid: 487cc038abaef2d40a0ba016dad82010, type: 2}
+  isDropable: 1

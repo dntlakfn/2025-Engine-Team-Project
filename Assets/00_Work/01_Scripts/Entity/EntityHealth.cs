@@ -4,7 +4,7 @@ namespace Work.Scripts.Entities
 {
     public class EntityHealth : MonoBehaviour
     {
-        [SerializeField] private int maxHealth;
+        public int maxHealth;
 
         private int health;
 
@@ -24,6 +24,14 @@ namespace Work.Scripts.Entities
             }
         }
 
+        private void Awake()
+        {
+            ResetHp();
+        }
+        public void ResetHp()
+        {
+            health = maxHealth;
+        }
 
         
     }

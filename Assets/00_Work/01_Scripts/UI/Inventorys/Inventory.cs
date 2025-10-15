@@ -26,5 +26,6 @@ namespace Work.Scripts.UI
         {
             gameObject.SetActive(false);
         }
+
     }
 }
