@@ -1,0 +1,127 @@
+using System.Security.Cryptography;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using Work.Scripts.Entities;
+using Work.Scripts.Entity;
+using Work.Scripts.Skills;
+
+namespace Work.Scripts.Players
+{
+    public class PlayerAttackCompo : MonoBehaviour
+    {
+        [SerializeField] private Weapon weapon;
+        [SerializeField] private EntityAnimator animator;
+        [SerializeField] private Transform[] enemyPoint;
+        [SerializeField] private LayerMask whatIsEnemy;
+        [SerializeField] private DamageText damageText;
+        [SerializeField] private GameObject useSkillText;
+        [SerializeField] private Transform canvas;
+        bool isSelecting = false;
+        SpriteRenderer selectImage = null;
+
+        int skillPercent;
+        int skillCount;
+        int skillNum;
+        int durabilityConsumption;
+        EntityHealth enemyHealth;
+
+        private void Awake()
+        {
+            animator.OnAttackEnemy += Attack;
+        }
+
+        private void OnDestroy()
+        {
+            animator.OnAttackEnemy -= Attack;
+        }
+
+        public void UseSkill(SkillSO skill)
+        {
+            isSelecting = true;
+
+            skillNum = skill.AnimationNum;
+            skillCount = skill.damageCount;
+            skillPercent = skill.damagePercent;
+            durabilityConsumption = skill.consumptionDurability;
+            useSkillText.SetActive(true);
+        }
+
+        public void Attack()
+        {
+            if (enemyHealth == null) return;
+            int damage = (int)(weapon.GetWeaponData().weaponSO.Damage * (skillPercent / 100f));
+            enemyHealth.HP -= (damage);
+            damageText.Show(damage, enemyHealth.transform.position + (Vector3.up * 4), canvas);
+        }
+
+        public void ConsumeDurability()
+        {
+            weapon.Durability -= durabilityConsumption;
+        }
+
+        private bool SelectTarget()
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit hit;
+            var hita = Physics.Raycast(mousePos, Vector3.forward, out hit, Camera.main.farClipPlane, whatIsEnemy);
+            Debug.Log(hit.collider);
+            if (hita)
+            {
+                var temp = hit.transform.parent.GetChild(0).GetComponent<SpriteRenderer>(); 
+                if (selectImage == temp)
+                {
+                    selectImage.color = new Color(1, 0, 0, 1f);
+                    return true;
+                }
+                else if(selectImage != null)
+                {
+                    selectImage.color = new Color(1, 0, 0, 0f);
+                    selectImage = temp;
+                    selectImage.color = new Color(1, 0, 0, 1f);
+                }
+                else
+                {
+                    selectImage = temp;
+                    selectImage.color = new Color(1, 0, 0, 1f);
+
+                }
+                EntityHealth enemy = hit.transform.GetComponent<EntityHealth>();
+                enemyHealth = enemy;
+
+                return true;
+            }
+            if(selectImage != null)
+                selectImage.color = new Color(1, 0, 0, 0f);
+            return false;
+        }
+
+        private void Update()
+        {
+            if (isSelecting)
+            {
+                
+                if(SelectTarget() && Input.GetMouseButtonDown(0))
+                {
+                    useSkillText.SetActive(false);
+                    selectImage.color = new Color(1, 0, 0, 0f);
+                    animator.StartSkillAnimation(weapon.GetWeaponData().weaponSO.weaponType, skillNum);
+                    isSelecting = false;
+                    ConsumeDurability();
+                }
+                else if(Input.GetMouseButtonDown(1))
+                {
+                    useSkillText.SetActive(false);
+
+                    isSelecting = false;
+                    if(selectImage != null)
+                        selectImage.color = new Color(1, 0, 0, 0f);
+                }
+            }
+        }
+
+
+        
+
+    }
+}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Work.Scripts.Etc;
 using Work.Scripts.UI;
 
 namespace Work.Scripts.Entities
@@ -12,43 +13,51 @@ namespace Work.Scripts.Entities
 
     }
 
-    public class Weapon : MonoBehaviour
+    public class Weapon : MonoBehaviour, IBattle
     {
         public UnityEvent<int> OnDurablityChanged;
         public UnityEvent OnBreakWeapon;
-        private WeaponType itemType;
-        private Sprite sprite;
-        private int damage;
-        private int maxDurability;
-        private int durability;
+        [SerializeField] private ItemSO fist;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        private WeaponData weaponData;
         public int Durability
         {
             get
             {
-                return durability;
+                return weaponData.durability;
             }
             set
             {
-                durability = value;
+                if(weaponData.durability != value) OnDurablityChanged?.Invoke(value);
+                weaponData.durability = value;
 
-                if(durability != value) OnDurablityChanged?.Invoke(durability/maxDurability);
-
-                if(durability <= 0)
+                if (weaponData.durability <= 0)
                 {
                     OnBreakWeapon?.Invoke();
+                    Initialize();
                 }
             }
         }
 
-        public void Initialize(ItemUI itemUI)
+        public void Initialize()
         {
-            WeaponData item = itemUI.GetItem();
-            itemType = item.weaponSO.weaponType;
-            sprite = item.weaponSO.sprite;
-            damage = item.weaponSO.Damage;
-            maxDurability = item.weaponSO.maxDurability;
-            durability = item.durability;
+            weaponData = new WeaponData();
+            weaponData.weaponSO = fist;
+            weaponData.durability = fist.maxDurability;
+            spriteRenderer.sprite = null;
         }
 
+        public void SetWeapon(ItemUI itemUI)
+        {
+            weaponData = itemUI.GetItem();
+            spriteRenderer.sprite = weaponData.weaponSO.sprite;
+        }
+
+        public WeaponData GetWeaponData()
+        {
+            return weaponData;
+        }
+
+        
     }
 }

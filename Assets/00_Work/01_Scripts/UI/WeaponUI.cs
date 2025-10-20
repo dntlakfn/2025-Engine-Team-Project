@@ -16,9 +16,6 @@ namespace Work.Scripts.UI
         [SerializeField] private TextMeshProUGUI weaponDurability;
         [SerializeField] private TextMeshProUGUI weaponTooltip;
         [SerializeField] private Image weaponDurabilityBar;
-        [SerializeField] private Image EXPBar;
-        [SerializeField] private TextMeshProUGUI EXPText;
-        [SerializeField] private TextMeshProUGUI EXPTitle;
 
         private WeaponData equipedWeapon;
 
@@ -35,9 +32,15 @@ namespace Work.Scripts.UI
             weaponName.text = weapon.weaponSO.weaponName;
             weaponDamage.text = $"Damage : {weapon.weaponSO.Damage.ToString()}";
             weaponDurability.text = $"{weapon.weaponSO.maxDurability}/{weapon.durability}";
-            weaponDurabilityBar.fillAmount = weapon.durability / weapon.weaponSO.maxDurability;
+            weaponDurabilityBar.fillAmount = (float)weapon.durability / (float)weapon.weaponSO.maxDurability;
             weaponTooltip.text = weapon.weaponSO.Tooltip;
-            EXPTitle.text = $"{weapon.weaponSO.weaponType} EXP";
+        }
+
+        public void SetDurabilityUI(int current)
+        {
+            equipedWeapon.durability = current;
+            weaponDurability.text = $"{equipedWeapon.durability}/{equipedWeapon.weaponSO.maxDurability}";
+            weaponDurabilityBar.fillAmount = (float)equipedWeapon.durability / (float)equipedWeapon.weaponSO.maxDurability;
         }
 
         public void ResetUI()
@@ -50,13 +53,10 @@ namespace Work.Scripts.UI
 
         public void ChangeWeaponUI(ItemUI item)
         {
+            WeaponData equiped = item.GetItem();
             item.SetItemUI(equipedWeapon);
-            SetUI(item.GetItem());
+            SetUI(equiped);
         }
 
-        public void SetDurabilityBar(int amount)
-        {
-            weaponDurabilityBar.fillAmount = amount;
-        }
     }
 }

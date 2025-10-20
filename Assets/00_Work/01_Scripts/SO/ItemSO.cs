@@ -7,12 +7,8 @@ namespace Work.Scripts.UI
         None = 0,
         Sword = 1,
         Spear,
+        Axe,
         BluntInstrument
-    }
-
-    public struct Stat
-    {
-        
     }
 
     [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO")]

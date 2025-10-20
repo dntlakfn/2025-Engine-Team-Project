@@ -7,6 +7,7 @@ namespace Work.Scripts.UI
     {
         private Image image;
         private GameObject obj;
+        private bool isDropable = true;
 
         private void Awake()
         {
@@ -17,7 +18,12 @@ namespace Work.Scripts.UI
         {
             if (obj != null)
             {
-                collision.GetComponent<ItemUI>().isDropable = false;
+                if (collision.GetComponent<ItemUI>().isDropable == true)
+                {
+                    isDropable = false;
+
+                    collision.GetComponent<ItemUI>().isDropable = false;
+                }
                 image.color = new Color(0.6f,0, 0);
                 return;
             }
@@ -27,11 +33,27 @@ namespace Work.Scripts.UI
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            image.color = new Color(1, 1, 1);
             if(collision.TryGetComponent(out ItemUI item))
             {
-                item.isDropable = true;
-                obj = null;
+                if (obj != item.gameObject)
+                {
+                    image.color = new Color(0, 0.6f, 0);
+                }
+                else if(obj == item.gameObject)
+                {
+                    image.color = new Color(1, 1, 1);
+                    obj = null;
+
+                }
+                if (isDropable == false)
+                {
+
+                    item.isDropable = true;
+                    isDropable = true;
+                    return;
+                }
+                
+                
             }
         }
     }
