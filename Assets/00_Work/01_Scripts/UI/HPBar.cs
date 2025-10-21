@@ -20,9 +20,19 @@ namespace Work.Scripts.UI
 
         private void Update()
         {
-            
+            if(entity == null) return;
             hpBar.fillAmount = ((float)entity.HP / (float)entity.maxHealth);
             hpText.text = $"{entity.HP}/{entity.maxHealth}";
+        }
+
+        public void SetEntity(EntityHealth entityHealth)
+        {
+            entity = entityHealth;
+            entity.OnDeath += ClearEntity;
+        }
+        public void ClearEntity()
+        {
+            entity = null;
         }
     }
 }

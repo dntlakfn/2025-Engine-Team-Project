@@ -8,12 +8,10 @@ namespace Work.Scripts.Etc
 
     public class BattleManager : MonoBehaviour
     {
-        public Action OnResetBattle;
 
         private void Awake()
         {
             BattleStart();
-            OnResetBattle?.Invoke();
         }
 
         private void BattleStart()
@@ -23,7 +21,7 @@ namespace Work.Scripts.Etc
                 if (a is IBattle component)
                 {
                     Debug.Log(component);
-                    OnResetBattle += component.Initialize;
+                    component.Initialize();
                 }
 
             }
