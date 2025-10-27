@@ -16,7 +16,7 @@ namespace Work.Scripts.UI
         [SerializeField] private PlayerSkillListSO playerSkillList;
         [SerializeField] private Transform skillBtnsParent;
 
-        public void Initialize()
+        public void BattleStart()
         {
             SetSkillBtn();
         }
@@ -35,6 +35,15 @@ namespace Work.Scripts.UI
             }
         }
 
+        public void ShowPannel()
+        {
+            transform.DOMoveX(showXPos - 9, moveDuration);
+        }
+
+        public void ClosePannel()
+        {
+            transform.DOMoveX(-showXPos - 9, moveDuration);
+        }
 
         public void SetSkillBtn()
         {
@@ -55,6 +64,9 @@ namespace Work.Scripts.UI
             }
         }
 
-        
+        public void BattleEnd()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

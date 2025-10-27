@@ -4,6 +4,7 @@ using UnityEngine;
 using Work.Scripts.Etc;
 using Work.Scripts.SO;
 
+
 namespace Work.Scripts.UI
 {
     public class StageNode
@@ -13,7 +14,7 @@ namespace Work.Scripts.UI
         public StageBtn data;
     }
 
-    public class StageUI : MonoBehaviour, IBattle
+    public class StageUI : MonoBehaviour
     {
         [SerializeField] private RectTransform content;
         [SerializeField] private Sprite[] stageIcons;
@@ -28,9 +29,10 @@ namespace Work.Scripts.UI
         private StageNode[][] stageNodes = new StageNode[11][];
         
 
-        [ContextMenu("StageNode Connect")]
-        public void Initialize()
+
+        public void Start()
         {
+            // 버튼 받아오기
             for (int i = 0; i < content.childCount; i++)
             {
                 stageBtns[i] = content.GetChild(i).GetComponentsInChildren<StageBtn>();
@@ -40,12 +42,25 @@ namespace Work.Scripts.UI
                 }
             }
 
+
+
+            SettingChestAndRestStage();
+            ConnectStageBtns();
+            UpdateLine();
+        }
+
+        /// <summary>
+        /// 상자 방과 휴식방 최대갯수(maxChestStageCount, maxRestStageCount)와 최초 등장가능 층 수(minNonBattleRoomAppearFloor)에 따라 랜덤으로 상자 방과 휴식 방 생성
+        /// </summary>
+        public void SettingChestAndRestStage()
+        {
+            // 스테이지 타입 설정
             // minNonBattleRoomAppearFloor를 11 이상으로 하면 오류난다
             for (int i = 0; i < (maxChestStageCount + maxRestStageCount); i++)
             {
-                int a = Random.Range(minNonBattleRoomAppearFloor - 1, stageBtns.Length-1);
+                int a = Random.Range(minNonBattleRoomAppearFloor - 1, stageBtns.Length - 1);
                 int b = Random.Range(0, 4);
-                while(stageBtns[a][b].GetStageType() != StageType.Battle)
+                while (stageBtns[a][b].GetStageType() != StageType.Battle)
                 {
                     a = Random.Range(minNonBattleRoomAppearFloor - 1, stageBtns.Length - 1);
                     b = Random.Range(0, 4);
@@ -67,15 +82,16 @@ namespace Work.Scripts.UI
                 }
             }
 
+
+            // 마지막은 보스방
             var t = stageBtns[stageBtns.Length - 1].Last();
             t.SetStage(StageType.Boss);
             t.SetIcon(stageIcons[(int)t.GetStageType()]);
-
-            ConnectStageBtns();
-            UpdateLine();
         }
 
-        
+        /// <summary>
+        /// 스테이지 노드들 서로 랜덤으로 연결
+        /// </summary>
         public void ConnectStageBtns()
         {
             for (int i = 0; i < stageBtns.Length - 1; i++)
@@ -97,6 +113,7 @@ namespace Work.Scripts.UI
                     //선 연결
                     stageNodes[i][j].data.LineToNextBtn(stageNodes[i][j].next.data.transform.position);
 
+
                     if (nexts.Length > 1)
                     {
                         var t = nexts.ToList();
@@ -107,6 +124,10 @@ namespace Work.Scripts.UI
             }
         }
 
+
+        /// <summary>
+        /// 스테이지 끼리 선 연결
+        /// </summary>
         public void UpdateLine()
         {
             for(int i = 0; i < stageNodes.Length; i++)

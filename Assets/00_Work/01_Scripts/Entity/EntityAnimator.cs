@@ -8,16 +8,22 @@ namespace Work.Scripts.Entities
     {
         private Animator _animator;
         private string _paramName;
-        public Action OnAttackEnemy;
+        public Action OnAttack;
         private void Awake()
         {
             _animator = GetComponent<Animator>();
         }
 
-        public void StartSkillAnimation(WeaponType weaponType, int v)
+        public void StartPlayerSkillAnimation(WeaponType weaponType, int v)
         {
             SetBool("IDLE", false);
             SetBool(weaponType.ToString().ToUpper(), true);
+            SetSkillNum(v);
+        }
+
+        public void StartEnemySkillAnimtion(int v)
+        {
+            SetBool("IDLE", false);
             SetSkillNum(v);
         }
 
@@ -27,18 +33,22 @@ namespace Work.Scripts.Entities
             _animator.SetBool(name, v);
         }
         public void SetSkillNum(int v) => _animator.SetInteger("SKILLNUM", v);
+
+
         public void EndSkillAnimation()
         {
             Debug.Log("EndSkillAnimation");
             _animator.SetBool("IDLE", true);
             SetBool(_paramName, false);
             _paramName = "";
-            SetSkillNum(0);
+            SetSkillNum(-1);
         }
 
         public void Attack()
         {
-            OnAttackEnemy?.Invoke();
+            OnAttack?.Invoke();
         }
+
+        public Animator GetAnimator() => _animator;
     }
 }

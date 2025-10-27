@@ -1,22 +1,27 @@
 using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Work.Scripts.Entities;
-using Work.Scripts.Entity;
 using Work.Scripts.Skills;
+using Work.Scripts.UI;
 
 namespace Work.Scripts.Players
 {
     public class PlayerAttackCompo : MonoBehaviour
     {
-        [SerializeField] private Weapon weapon;
+        public UnityEvent<Animator, GameObject, Volume> OnAttackProduction;
+
+        [SerializeField] private PlayerWeapon weapon;
         [SerializeField] private EntityAnimator animator;
         [SerializeField] private Transform[] enemyPoint;
         [SerializeField] private LayerMask whatIsEnemy;
         [SerializeField] private DamageText damageText;
         [SerializeField] private GameObject useSkillText;
         [SerializeField] private Transform canvas;
+        [SerializeField] private Volume volume;
         bool isSelecting = false;
         SpriteRenderer selectImage = null;
 
@@ -28,12 +33,12 @@ namespace Work.Scripts.Players
 
         private void Awake()
         {
-            animator.OnAttackEnemy += Attack;
+            animator.OnAttack += Attack;
         }
 
         private void OnDestroy()
         {
-            animator.OnAttackEnemy -= Attack;
+            animator.OnAttack -= Attack;
         }
 
         public void UseSkill(SkillSO skill)
@@ -49,10 +54,12 @@ namespace Work.Scripts.Players
 
         public void Attack()
         {
+            
             if (enemyHealth == null) return;
             int damage = (int)(weapon.GetWeaponData().weaponSO.Damage * (skillPercent / 100f));
             enemyHealth.HP -= (damage);
-            damageText.Show(damage, enemyHealth.transform.position + (Vector3.up * 4), canvas);
+            OnAttackProduction?.Invoke(animator.GetAnimator(), enemyHealth.gameObject, volume);
+            damageText.Show(damage, enemyHealth.transform.position + (Vector3.up * 4) - (Vector3.forward * 4), canvas);
         }
 
         public void ConsumeDurability()
@@ -105,7 +112,7 @@ namespace Work.Scripts.Players
                 {
                     useSkillText.SetActive(false);
                     selectImage.color = new Color(1, 0, 0, 0f);
-                    animator.StartSkillAnimation(weapon.GetWeaponData().weaponSO.weaponType, skillNum);
+                    animator.StartPlayerSkillAnimation(weapon.GetWeaponData().weaponSO.weaponType, skillNum);
                     isSelecting = false;
                     ConsumeDurability();
                 }

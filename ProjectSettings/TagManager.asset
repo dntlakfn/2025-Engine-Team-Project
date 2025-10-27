@@ -12,11 +12,11 @@ TagManager:
   - Water
   - UI
   - Weapon
-  - Enemy
-  - 
-  - 
-  - 
-  - 
+  - Enemy_1
+  - Player
+  - DamageText
+  - Enemy_2
+  - Enemy_3
   - 
   - 
   - 

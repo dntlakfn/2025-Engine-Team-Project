@@ -4,7 +4,7 @@ namespace Work.Scripts.Entities
 {
     public class WeaponHolder : MonoBehaviour
     {
-        [SerializeField] Weapon weapon;
+        [SerializeField] PlayerWeapon weapon;
 
     }
 }

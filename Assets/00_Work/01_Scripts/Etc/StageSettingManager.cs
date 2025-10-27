@@ -1,6 +1,9 @@
 using UnityEngine;
 using Work.Scripts.UI;
 using Work.Scripts.SO;
+using Work.Scripts.Entities;
+using TMPro;
+using Work.Scripts.Enemies;
 
 namespace Work.Scripts.Etc
 {
@@ -13,7 +16,7 @@ namespace Work.Scripts.Etc
         [SerializeField] private ChestUI chestUI;
         [SerializeField] private GameObject restUI;
         [SerializeField] private Transform[] enemySpawnPoint;
-        
+        [SerializeField] private HPBar[] enemyHpBars;
 
         private void Awake()
         {
@@ -55,8 +58,12 @@ namespace Work.Scripts.Etc
             EnemyFooting enemyFooting = stageData.enemies[Random.Range(0, stageData.enemies.Count)];
             for (int i = 0; i < enemyFooting.enemies.Length; i++)
             {
-                var enemy = Instantiate(enemyFooting.enemies[i], enemySpawnPoint[i].position, Quaternion.Euler(new Vector3(0, -90, 0)), enemySpawnPoint[i]);
+                EnemyController enemy = Instantiate(enemyFooting.enemies[i], enemySpawnPoint[i].position, Quaternion.Euler(new Vector3(0, -90, 0)), enemySpawnPoint[i]).GetComponent<EnemyController>();
+                enemyHpBars[i].SetEntity(enemy.GetComponent<EntityHealth>());
+                enemyHpBars[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = enemy.enemyName;
+                enemyHpBars[i].gameObject.SetActive(true);
             }
+            
         }
 
         private void ShowChestMap()

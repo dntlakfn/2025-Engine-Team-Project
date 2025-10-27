@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using Work.Scripts.Entities;
 
-namespace Work.Scripts.Entity
+namespace Work.Scripts.UI
 {
     public class DamageText : MonoBehaviour
     {
@@ -17,10 +17,11 @@ namespace Work.Scripts.Entity
         }
 
 
-        public void Show(int damage, Vector2 point, Transform canvas)
+        public void Show(int damage, Vector3 point, Transform canvas)
         {
             DamageText a = Instantiate(this, point, Quaternion.identity, canvas);
             a.damageText.text = damage.ToString();
+            a.damageText.fontSize = 36 + damage;
             a.animator.Play("ShowText");
             a.StartCoroutine(FadeOut(a.gameObject));
         }

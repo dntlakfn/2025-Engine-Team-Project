@@ -10,7 +10,6 @@ namespace Work.Scripts.UI
 
     public class StageBtn : MonoBehaviour
     {
-        [SerializeField] private BattleStageDataSO stageData;
         private StageType stageType;
         private Button btn;
         private LineRenderer lineRenderer;

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Work.Scripts.Enemies;
 using Work.Scripts.Entities;
 using Work.Scripts.Etc;
 
@@ -8,18 +9,20 @@ namespace Work.Scripts.UI
 {
     public class HPBar : MonoBehaviour, IBattle
     {
-        [SerializeField] private EntityHealth entity;
+        [SerializeField] private Transform enemyPoint;
         [SerializeField] private Image hpBar;
         [SerializeField] private TextMeshProUGUI hpText;
+       
+        private EntityHealth entity = null;
 
-        public void Initialize()
+        public void BattleStart()
         {
-            if (!entity.isActiveAndEnabled) gameObject.SetActive(false);
-            else gameObject.SetActive(true);
+
         }
 
         private void Update()
         {
+
             if(entity == null) return;
             hpBar.fillAmount = ((float)entity.HP / (float)entity.maxHealth);
             hpText.text = $"{entity.HP}/{entity.maxHealth}";
@@ -32,7 +35,14 @@ namespace Work.Scripts.UI
         }
         public void ClearEntity()
         {
+            entity.OnDeath -= ClearEntity;
             entity = null;
+        }
+
+        public void BattleEnd()
+        {
+            gameObject.SetActive(false);
+
         }
     }
 }

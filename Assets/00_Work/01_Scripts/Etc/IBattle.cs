@@ -4,6 +4,7 @@ namespace Work.Scripts.Etc
 {
     public interface IBattle
     {
-        public void Initialize();
+        public void BattleStart();
+        public void BattleEnd();
     }
 }

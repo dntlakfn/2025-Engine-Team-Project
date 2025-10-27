@@ -13,7 +13,7 @@ namespace Work.Scripts.Entities
 
     }
 
-    public class Weapon : MonoBehaviour, IBattle
+    public class PlayerWeapon : MonoBehaviour, IBattle
     {
         public UnityEvent<int> OnDurablityChanged;
         public UnityEvent OnBreakWeapon;
@@ -34,12 +34,12 @@ namespace Work.Scripts.Entities
                 if (weaponData.durability <= 0)
                 {
                     OnBreakWeapon?.Invoke();
-                    Initialize();
+                    BattleStart();
                 }
             }
         }
 
-        public void Initialize()
+        public void BattleStart()
         {
             weaponData = new WeaponData();
             weaponData.weaponSO = fist;
@@ -58,6 +58,9 @@ namespace Work.Scripts.Entities
             return weaponData;
         }
 
-        
+        public void BattleEnd()
+        {
+            
+        }
     }
 }

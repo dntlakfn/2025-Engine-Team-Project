@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 131a0b3fcf7727e40947ef1e8c0c05cc
+guid: 37317e2caea2d3e49a3fddf87f93947c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -34,11 +34,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dead
+      name: DoubleSlash
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 64
+      lastFrame: 82
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
