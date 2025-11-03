@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+
 using System.Linq;
 using UnityEngine;
 using Work.Scripts.Etc;
@@ -12,9 +12,15 @@ namespace Work.Scripts.UI
         public StageNode next;
 
         public StageBtn data;
+
+        public void SetBtnEvent()
+        {
+            data.AddClickEvent(() => data.ActiveBtn(false));
+            data.AddClickEvent(() => next.data.ActiveBtn(true));
+        }
     }
 
-    public class StageUI : MonoBehaviour
+    public class StageUI : MonoBehaviour, IBattle
     {
         [SerializeField] private RectTransform content;
         [SerializeField] private Sprite[] stageIcons;
@@ -112,6 +118,7 @@ namespace Work.Scripts.UI
 
                     //선 연결
                     stageNodes[i][j].data.LineToNextBtn(stageNodes[i][j].next.data.transform.position);
+                    stageNodes[i][j].SetBtnEvent();
 
 
                     if (nexts.Length > 1)
@@ -120,6 +127,9 @@ namespace Work.Scripts.UI
                         t.RemoveAt(rand);
                         nexts = t.ToArray();
                     }
+
+                    // 버튼 세팅
+
                 }
             }
         }
@@ -139,5 +149,14 @@ namespace Work.Scripts.UI
             }
         }
 
+        public void BattleStart()
+        {
+            
+        }
+
+        public void BattleEnd()
+        {
+            gameObject.SetActive(true);
+        }
     }
 }

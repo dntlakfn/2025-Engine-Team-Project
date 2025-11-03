@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 606f1ff4b3e09da4892ac94df3545851, type: 3}
-  m_Name: Test 2
+  m_Script: {fileID: 11500000, guid: c07e6c8dab80fcd448508b9b236b3437, type: 3}
+  m_Name: Sword_Push
   m_EditorClassIdentifier: 
-  itemType: 1
-  sprite: {fileID: 7307331211696181844, guid: 3d2f179f51453614f935a24a60a198ff, type: 3}
-  sizeX: 1
-  sizeY: 3
+  skillName: "\uBC00\uC5B4\uBD99\uC774\uAE30"
+  needSkillPoint: 2
+  consumptionDurability: 30
+  damagePercent: 80
+  damageCount: 4
+  AnimationNum: 6

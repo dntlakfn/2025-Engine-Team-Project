@@ -1,10 +1,10 @@
-using System.Security.Cryptography;
-using TMPro;
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
-using UnityEngine.UI;
+using Work.Scripts.Enemies;
 using Work.Scripts.Entities;
+using Work.Scripts.Etc;
 using Work.Scripts.Skills;
 using Work.Scripts.UI;
 
@@ -22,8 +22,11 @@ namespace Work.Scripts.Players
         [SerializeField] private GameObject useSkillText;
         [SerializeField] private Transform canvas;
         [SerializeField] private Volume volume;
+        [SerializeField] private ThrowWeapon throwPrefab;
         bool isSelecting = false;
         SpriteRenderer selectImage = null;
+
+        
 
         int skillPercent;
         int skillCount;
@@ -115,6 +118,8 @@ namespace Work.Scripts.Players
                     animator.StartPlayerSkillAnimation(weapon.GetWeaponData().weaponSO.weaponType, skillNum);
                     isSelecting = false;
                     ConsumeDurability();
+                    weapon.GetSkillTree().EXP += 20 + (Random.Range(0, 10));
+                    BattleManager.Instance.TurnManager.StartEnemyTurn();
                 }
                 else if(Input.GetMouseButtonDown(1))
                 {
@@ -128,7 +133,12 @@ namespace Work.Scripts.Players
         }
 
 
-        
+        public void Throw(WeaponData weapon)
+        {
+            var temp = Instantiate(throwPrefab, transform.position + new Vector3(1, 2f, 0), Quaternion.Euler(new Vector3(0, 0, -90)));
+            temp.canvas = canvas;
+            temp.Throw(weapon);
+        }
 
     }
 }

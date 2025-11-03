@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Work.Scripts.Etc;
+using Work.Scripts.Skills;
 using Work.Scripts.UI;
 
 namespace Work.Scripts.Entities
@@ -19,7 +20,10 @@ namespace Work.Scripts.Entities
         public UnityEvent OnBreakWeapon;
         [SerializeField] private ItemSO fist;
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private SkillTreeSO[] skillTrees;
         private WeaponData weaponData;
+        SkillTreeSO skillTree;
+
         public int Durability
         {
             get
@@ -56,6 +60,17 @@ namespace Work.Scripts.Entities
         public WeaponData GetWeaponData()
         {
             return weaponData;
+        }
+
+        public SkillTreeSO GetSkillTree()
+        {
+            skillTree = skillTrees[(int)weaponData.weaponSO.weaponType];
+            return skillTree;
+        }
+
+        public void FixWeapon()
+        {
+            Durability += weaponData.weaponSO.maxDurability * (3 / 10);
         }
 
         public void BattleEnd()

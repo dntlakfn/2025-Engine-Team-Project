@@ -17,23 +17,15 @@ MonoBehaviour:
   Lights:
   - {fileID: 11400000, guid: 2cade0c63acba154f8c10695ef08a901, type: 2}
   - {fileID: 11400000, guid: 43f19e675e3b5b7438b72d93e77e22c6, type: 2}
-  - {fileID: 11400000, guid: 5045dff903548d44ba2c1d17a8ca9b61, type: 2}
   - {fileID: 11400000, guid: e3ee201fc49873c47835708c6068bec3, type: 2}
   Mediums:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: fc4aa16f444246e43974bbecb190a800, type: 2}
+  - {fileID: 11400000, guid: b4a94c9ed50f94e48a642013abd443f4, type: 2}
+  - {fileID: 11400000, guid: cc08f61b375ebf048bc55ebf31693bc6, type: 2}
   Strongs:
-  - {fileID: 0}
-  Defenses:
-  - {fileID: 0}
-  skillLists:
-    Lights:
-      data: {fileID: 11400000, guid: 2cade0c63acba154f8c10695ef08a901, type: 2}
-    Mediums:
-      data: {fileID: 0}
-    Strongs:
-      data: {fileID: 0}
-    Defenses:
-      data: {fileID: 0}
+  - {fileID: 11400000, guid: b378e43c4ff75534cb6186868329e2d3, type: 2}
+  - {fileID: 11400000, guid: c8965614b1cd40a49933c29912ffc7d8, type: 2}
+  - {fileID: 11400000, guid: 83bbe90761d84d34cba2fb519d2c393e, type: 2}
   skillPoints: 0
   OnLevelUp:
     m_PersistentCalls:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: "\uB450\uBC88 \uBCA0\uAE30"
   needSkillPoint: 1
-  consumptionDurability: 10
-  damagePercent: 60
+  consumptionDurability: 25
+  damagePercent: 100
   damageCount: 2
   AnimationNum: 1

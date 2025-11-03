@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace Work.Scripts.Enemies
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IBattle
     {
         [SerializeField] private SkillSO[] skills;
 
@@ -27,17 +27,16 @@ namespace Work.Scripts.Enemies
         private Transform canvas;
         private Transform damageTextCanvas;
         private Volume volume;
-        private EntityAnimator animator;
+        [SerializeField] private EntityAnimator animator;
+        private AttackCamera attackCamera;
+        public SkillSO skillData;
+        public EntityHealth _myHealth;
+        
 
-        SkillSO skillData;
-        EntityHealth playerHealth;
-
+        private EntityHealth _playerHealth;
         private void Awake()
         {
-            animator = GetComponentInChildren<EntityAnimator>();
-
-            animator.OnAttack += Attack;
-
+            _myHealth = GetComponent<EntityHealth>();
         }
 
         private void OnDestroy()
@@ -45,20 +44,31 @@ namespace Work.Scripts.Enemies
             animator.OnAttack -= Attack;
         }
 
-        public void Initialize(EntityHealth player, Transform canvas, Transform damageTextCanvas, AttackCamera cam, Volume volume)
+        public void Initialize(Transform canvas, Transform damageTextCanvas, Volume volume)
         {
-            playerHealth = player;
+            animator = GetComponentInChildren<EntityAnimator>();
+
+            animator.OnAttack += Attack;
+            _playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<EntityHealth>();
+            
             this.damageTextCanvas = damageTextCanvas;
             this.volume = volume;
             this.canvas = canvas;
-            OnAttackProduction += cam.MoveAction;
+            attackCamera = BattleManager.Instance.GetAttackCamera();
+            animator.SetBoneLayer(gameObject.layer);
+            weapon.gameObject.layer = gameObject.layer;
+            
         }
 
         public void StartAction()
         {
-            SetSkill();
-            var skillText = Instantiate(enemySkillText, canvas);
+            if(_myHealth.isDead) return;
+
+            Debug.Log(animator.GetAnimator().runtimeAnimatorController);
+            skillData = skills[Random.Range(0, skills.Length)];
+            var skillText = Instantiate(enemySkillText, canvas); 
             skillText.Show(skillData.skillName);
+            //animator.StartEnemySkillAnimtion(skillData.AnimationNum);
             DOVirtual.DelayedCall(1f, () =>
             {
                 animator.StartEnemySkillAnimtion(skillData.AnimationNum);
@@ -68,25 +78,24 @@ namespace Work.Scripts.Enemies
 
         }
 
-        public void SetSkill()
-        {
-            skillData = skills[Random.Range(0, skills.Length)];
-        }
-
         public void Attack()
         {
 
-            if (playerHealth == null) return;
+            if (_playerHealth == null) return;
             int damage = (int)(weapon.GetEnemyWeapon().Damage * (skillData.damagePercent / 100f));
-            playerHealth.HP -= (damage);
-            OnAttackProduction?.Invoke(animator.GetAnimator(), playerHealth.gameObject, volume);
-            damageText.Show(damage, playerHealth.transform.position + (Vector3.up * 4) - (Vector3.forward * 4), damageTextCanvas);
+            _playerHealth.HP -= (damage);
+            attackCamera.MoveAction(animator.GetAnimator(), _playerHealth.gameObject, volume);
+            damageText.Show(damage, _playerHealth.transform.position + (Vector3.up * 4) - (Vector3.forward * 4), damageTextCanvas);
         }
-        
 
+        public void BattleStart()
+        {
+            
+        }
 
-
-
-
+        public void BattleEnd()
+        {
+            Destroy(gameObject);
+        }
     }
 }

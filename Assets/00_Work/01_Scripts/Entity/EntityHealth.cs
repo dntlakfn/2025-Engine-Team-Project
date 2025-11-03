@@ -1,14 +1,20 @@
-using System;
+
 using UnityEngine;
+using Work.Scripts.Etc;
 
 namespace Work.Scripts.Entities
 {
     public class EntityHealth : MonoBehaviour
     {
         public int maxHealth;
+        public bool isPlayer = false;
+        public bool isBoss = false;
+        [HideInInspector]
+        public bool isDead = false;
         private Animator animator;
-        public Action OnDeath;
         private int health;
+        private Collider _collider;
+
 
         public int HP
         {
@@ -21,9 +27,11 @@ namespace Work.Scripts.Entities
                 health = value;
                 if(health <= 0 )
                 {
-                    animator.Play("Dead", 0);
-                    OnDeath?.Invoke();
-                    Destroy(gameObject, 1.0f);
+                    animator.SetBool("DEAD", true);
+                    animator.SetBool("IDLE", false);
+                    BattleManager.Instance.EntityDead(isPlayer, isBoss);
+                    _collider.enabled = false;
+                    isDead = true;
                 }
                 else
                 {
@@ -35,12 +43,9 @@ namespace Work.Scripts.Entities
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
-            ResetHp();
-        }
+            _collider = GetComponent<BoxCollider>();
 
-        private void OnDestroy()
-        {
-            OnDeath = null;
+            ResetHp();
         }
 
         public void ResetHp()
@@ -48,6 +53,9 @@ namespace Work.Scripts.Entities
             health = maxHealth;
         }
 
-        
+        public void Rest()
+        {
+            health += maxHealth * (3 / 10);
+        }
     }
 }

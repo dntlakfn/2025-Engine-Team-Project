@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c07e6c8dab80fcd448508b9b236b3437, type: 3}
-  m_Name: Sword_e
+  m_Name: Sword_TurnSlash
   m_EditorClassIdentifier: 
-  skillName: "4\uC5F0 \uCC38\uACA9"
-  needSkillPoint: 3
-  consumptionDurability: 40
-  damagePercent: 80
-  damageCount: 4
-  AnimationNum: 3
+  skillName: "\uD68C\uC804\uBC30\uAE30"
+  needSkillPoint: 2
+  consumptionDurability: 20
+  damagePercent: 200
+  damageCount: 1
+  AnimationNum: 4

@@ -13,20 +13,19 @@ MonoBehaviour:
   m_Name: Spear_SkillTree
   m_EditorClassIdentifier: 
   weaponType: 2
+  weaponIcon: {fileID: 0}
   Lights:
   - {fileID: 0}
-  Mediums: []
-  Strongs: []
-  Defenses: []
-  skillLists:
-    Lights:
-      data: {fileID: 0}
-    Mediums:
-      data: {fileID: 0}
-    Strongs:
-      data: {fileID: 0}
-    Defenses:
-      data: {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Mediums:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Strongs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   skillPoints: 0
   OnLevelUp:
     m_PersistentCalls:

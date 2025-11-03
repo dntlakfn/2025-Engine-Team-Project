@@ -55,7 +55,6 @@ namespace Work.Scripts.UI
                     skillBtnPrefabs[i].gameObject.SetActive(true);
 
                     skillBtnPrefabs[i].SetSkill(playerSkillList.playerSkills[i]);
-
                 }
                 else
                 {
@@ -66,7 +65,8 @@ namespace Work.Scripts.UI
 
         public void BattleEnd()
         {
-            throw new System.NotImplementedException();
+            
+
         }
     }
 }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c07e6c8dab80fcd448508b9b236b3437, type: 3}
-  m_Name: Sword_w
+  m_Name: Sword_GreatCut
   m_EditorClassIdentifier: 
-  skillName: "\uBCA0\uC5B4\uAC00\uB974\uAE30"
-  needSkillPoint: 2
-  consumptionDurability: 10
-  damagePercent: 140
+  skillName: "\uB300\uC808\uB2E8"
+  needSkillPoint: 4
+  consumptionDurability: 20
+  damagePercent: 500
   damageCount: 1
-  AnimationNum: 2
+  AnimationNum: 7

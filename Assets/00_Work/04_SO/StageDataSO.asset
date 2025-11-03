@@ -13,9 +13,25 @@ MonoBehaviour:
   m_Name: StageDataSO
   m_EditorClassIdentifier: 
   enemies:
-  - enemies: []
-  - enemies: []
-  - enemies: []
-  chestMap: {fileID: 0}
-  restUI: {fileID: 0}
-  bossEnemy: {fileID: 0}
+  - enemies:
+    - {fileID: 5724286606861839247, guid: 990722290acfe4e44a4725fc0d266e7f, type: 3}
+    - {fileID: 5724286606861839247, guid: 990722290acfe4e44a4725fc0d266e7f, type: 3}
+    - {fileID: 5724286606861839247, guid: 990722290acfe4e44a4725fc0d266e7f, type: 3}
+  - enemies:
+    - {fileID: 5724286606861839247, guid: 990722290acfe4e44a4725fc0d266e7f, type: 3}
+    - {fileID: 5724286606861839247, guid: 990722290acfe4e44a4725fc0d266e7f, type: 3}
+  - enemies:
+    - {fileID: 5724286606861839247, guid: 990722290acfe4e44a4725fc0d266e7f, type: 3}
+  - enemies:
+    - {fileID: 5724286606861839247, guid: 990722290acfe4e44a4725fc0d266e7f, type: 3}
+    - {fileID: 3497720527384466854, guid: 701b511c796830e4a88c4143413681f2, type: 3}
+  - enemies:
+    - {fileID: 3497720527384466854, guid: 701b511c796830e4a88c4143413681f2, type: 3}
+    - {fileID: 3497720527384466854, guid: 701b511c796830e4a88c4143413681f2, type: 3}
+  - enemies:
+    - {fileID: 3497720527384466854, guid: 701b511c796830e4a88c4143413681f2, type: 3}
+    - {fileID: 3497720527384466854, guid: 701b511c796830e4a88c4143413681f2, type: 3}
+    - {fileID: 3497720527384466854, guid: 701b511c796830e4a88c4143413681f2, type: 3}
+  - enemies:
+    - {fileID: 3497720527384466854, guid: 701b511c796830e4a88c4143413681f2, type: 3}
+  bossEnemy: {fileID: 5724286606861839247, guid: e157397eee2d66e4ba091edbf25fee0e, type: 3}

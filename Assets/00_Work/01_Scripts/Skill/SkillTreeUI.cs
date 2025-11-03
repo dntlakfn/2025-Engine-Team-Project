@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Work.Scripts.UI;
 
@@ -11,26 +12,48 @@ namespace Work.Scripts.Skills
         [SerializeField] private Transform Lights;
         [SerializeField] private Transform Mediums;
         [SerializeField] private Transform Strongs;
-        [SerializeField] private Transform Defenses;
+
 
 
         public void InitializeUI()
         {
-            PopulateSkillBranchUI(Lights, skillTreeSO.skillLists.Lights);
-            PopulateSkillBranchUI(Mediums, skillTreeSO.skillLists.Mediums);
-            PopulateSkillBranchUI(Strongs, skillTreeSO.skillLists.Strongs);
-            PopulateSkillBranchUI(Defenses, skillTreeSO.skillLists.Defenses);
+            PopulateSkillBranchUI(Lights, skillTreeSO.Lights);
+            PopulateSkillBranchUI(Mediums, skillTreeSO.Mediums);
+            PopulateSkillBranchUI(Strongs, skillTreeSO.Strongs);
         }
 
-        private void PopulateSkillBranchUI(Transform skillBtns, SkillNode skills)
+        private void PopulateSkillBranchUI(Transform skillBtns, List<SkillSO> skills)
         {
-            SkillNode currentSkillNode = skills;
-            SkillNodeUI[] skillNodeUI = skillBtns.GetComponentsInChildren<SkillNodeUI>();
-            for(int i = 0; i < skillNodeUI.Length; i++)
+            SkillNodeUI[] skillNodeUI = skillBtns.GetComponentsInChildren<SkillNodeUI>(true);
+            
+            for(int i = 0; i < skillNodeUI.Length-1; i++)
             {
-                
-                skillNodeUI[i].SetSkill(currentSkillNode.data);
-                currentSkillNode = currentSkillNode.next;
+                if (skills[i] == null)
+                {
+                    skillNodeUI[i].gameObject.SetActive(false);
+                    continue;
+                }
+                else
+                {
+                    skillNodeUI[i].gameObject.SetActive(true);
+                }
+                skillNodeUI[i].SetSkill(skills[i]);
+                skillNodeUI[i].AddClickEvent(() => 
+                {
+                    skillNodeUI[i + 1].ActiveBtn(true);
+                    skillNodeUI[i].RemoveClickEvent();
+                });
+            }
+            if(skills[skillNodeUI.Length - 1] == null)
+            {
+                skillNodeUI[skillNodeUI.Length - 1].gameObject.SetActive(false);
+            }
+            else
+            {
+                skillNodeUI[skillNodeUI.Length - 1].gameObject.SetActive(true);
+
+                skillNodeUI[skillNodeUI.Length - 1].SetSkill(skills[skillNodeUI.Length - 1]);
+
             }
         }
     }

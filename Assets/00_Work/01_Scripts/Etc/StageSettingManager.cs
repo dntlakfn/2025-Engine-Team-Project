@@ -4,6 +4,8 @@ using Work.Scripts.SO;
 using Work.Scripts.Entities;
 using TMPro;
 using Work.Scripts.Enemies;
+using UnityEngine.Rendering;
+using System.Linq;
 
 namespace Work.Scripts.Etc
 {
@@ -15,8 +17,14 @@ namespace Work.Scripts.Etc
         [SerializeField] private GameObject stageUI;
         [SerializeField] private ChestUI chestUI;
         [SerializeField] private GameObject restUI;
+
+        [Header("Enemy Setting")]
         [SerializeField] private Transform[] enemySpawnPoint;
         [SerializeField] private HPBar[] enemyHpBars;
+        [SerializeField] private Transform canvas;
+        [SerializeField] private Transform damageTextCanvas;
+        [SerializeField] private Volume volume;
+
 
         private void Awake()
         {
@@ -56,14 +64,22 @@ namespace Work.Scripts.Etc
         private void SpawnEnemies()
         {
             EnemyFooting enemyFooting = stageData.enemies[Random.Range(0, stageData.enemies.Count)];
+            EnemyController[] spawnedEnemies = new EnemyController[enemyFooting.enemies.Length];
+
             for (int i = 0; i < enemyFooting.enemies.Length; i++)
             {
                 EnemyController enemy = Instantiate(enemyFooting.enemies[i], enemySpawnPoint[i].position, Quaternion.Euler(new Vector3(0, -90, 0)), enemySpawnPoint[i]).GetComponent<EnemyController>();
+                Debug.Log(enemy.gameObject);
+                enemy.gameObject.layer = LayerMask.NameToLayer($"Enemy_{i+1}");
+                enemy.Initialize(canvas, damageTextCanvas, volume);
                 enemyHpBars[i].SetEntity(enemy.GetComponent<EntityHealth>());
                 enemyHpBars[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = enemy.enemyName;
                 enemyHpBars[i].gameObject.SetActive(true);
+                spawnedEnemies[i] = enemy;
             }
-            
+            BattleManager.Instance.enemies = spawnedEnemies;
+
+
         }
 
         private void ShowChestMap()

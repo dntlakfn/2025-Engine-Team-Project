@@ -1,7 +1,12 @@
+
 using System.Collections;
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Events;
+
 using Work.Scripts.Enemies;
+
 
 namespace Work.Scripts.Etc
 {
@@ -13,7 +18,6 @@ namespace Work.Scripts.Etc
 
         public void BattleStart()
         {
-            GetBattleEnemies();
             StartPlayerTurn();
         }
 
@@ -22,11 +26,6 @@ namespace Work.Scripts.Etc
 
         }
 
-        public void GetBattleEnemies()
-        {
-            enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
-
-        }
 
         public void StartPlayerTurn()
         {
@@ -36,9 +35,12 @@ namespace Work.Scripts.Etc
 
         private IEnumerator PlayEnemiesTurn()
         {
-            foreach(EnemyController enemy in enemies)
+            yield return new WaitForSeconds(4.5f);
+            foreach (EnemyController enemy in enemies)
             {
-                enemy.StartAction();
+                if(enemy._myHealth.isDead) continue;
+
+                enemy.StartAction(); 
                 yield return new WaitForSeconds(4.5f);
             }
             StartPlayerTurn();
@@ -48,7 +50,19 @@ namespace Work.Scripts.Etc
         public void StartEnemyTurn()
         {
             OnEnemyTurnStart?.Invoke();
-            StartCoroutine(PlayEnemiesTurn());
+            List<EnemyController> t = new List<EnemyController>();
+            foreach(var enemy in BattleManager.Instance.enemies)
+            {
+                t.Add(enemy);
+            }
+            enemies = t.ToArray();
+            Debug.Log(enemies.Length);
+            StartCoroutine("PlayEnemiesTurn");
+        }
+
+        public void StopTurn()
+        {
+            StopCoroutine("PlayEnemiesTurn");
         }
 
 

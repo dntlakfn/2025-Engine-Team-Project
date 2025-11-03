@@ -4811,7 +4811,7 @@ GameObject:
   - component: {fileID: 5213651527257675704}
   - component: {fileID: 8589948226240905953}
   - component: {fileID: 7220299963670840230}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4829,7 +4829,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.050000004, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 105497825092202189}
   m_Father: {fileID: 0}
@@ -4847,6 +4847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  isDead: 0
 --- !u!65 &5213651527257675704
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4915,6 +4916,8 @@ MonoBehaviour:
     m_Bits: 256
   damageText: {fileID: 4101341459946116017, guid: 25f75f1f01036704f9e6d10b7c3bb447, type: 3}
   enemySkillText: {fileID: 3654543369322408248, guid: 99e33db1e88cb2a46b62ee2d34eff33b, type: 3}
+  animator: {fileID: 3071862840706133520}
+  skillData: {fileID: 0}
 --- !u!1 &3508717646226421222
 GameObject:
   m_ObjectHideFlags: 0
@@ -4999,6 +5002,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 481e596e28022cc45b02b7d879e0a14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 4537569932549044908}
+  skinnedRenderer: {fileID: 235347994362484399}
 --- !u!1001 &4164259660186101729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5009,15 +5014,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3121955209776135735, guid: ec77904ab53637941b767bd99fe789e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.015700448
+      value: 0.119
       objectReference: {fileID: 0}
     - target: {fileID: 3121955209776135735, guid: ec77904ab53637941b767bd99fe789e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.079632595
+      value: 0.014
       objectReference: {fileID: 0}
     - target: {fileID: 3121955209776135735, guid: ec77904ab53637941b767bd99fe789e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5196898
+      value: -0.52
       objectReference: {fileID: 0}
     - target: {fileID: 3121955209776135735, guid: ec77904ab53637941b767bd99fe789e0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5050,6 +5055,10 @@ PrefabInstance:
     - target: {fileID: 4192014883396106947, guid: ec77904ab53637941b767bd99fe789e0, type: 3}
       propertyPath: m_Name
       value: EnemyWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4192014883396106947, guid: ec77904ab53637941b767bd99fe789e0, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

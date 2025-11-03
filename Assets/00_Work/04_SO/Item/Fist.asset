@@ -17,7 +17,7 @@ MonoBehaviour:
   weaponName: "\uC8FC\uBA39"
   Tooltip: "\uAD81\uC9C0\uC5D0 \uBAB0\uB838\uC744 \uB54C, \uBBFF\uC744 \uC218 \uC788\uB294\uAC74
     \uC790\uAE30\uC790\uC2E0 \uBFD0\uC785\uB2C8\uB2E4."
-  Damage: 1
+  Damage: 5
   maxDurability: 9999
   sizeX: 0
   sizeY: 0

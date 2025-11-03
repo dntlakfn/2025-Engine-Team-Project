@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606f1ff4b3e09da4892ac94df3545851, type: 3}
+  m_Name: Spear
+  m_EditorClassIdentifier: 
+  weaponType: 1
+  sprite: {fileID: -7511545135804489899, guid: 3d2f179f51453614f935a24a60a198ff, type: 3}
+  weaponName: "\uB0A1\uC740 \uC5B8\uC6D4\uB3C4"
+  Tooltip: "\uC61B\uB0A0\uC5D0 \uB3D9\uC591\uC5D0\uC11C \uC720\uD589\uD55C \uCC3D?
+    \uC785\uB2C8\uB2E4"
+  Damage: 18
+  maxDurability: 50
+  sizeX: 1
+  sizeY: 4

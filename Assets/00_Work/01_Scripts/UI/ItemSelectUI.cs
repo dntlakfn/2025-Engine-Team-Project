@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
+
 using Work.Scripts.Entities;
-using Work.Scripts.Etc;
+
 
 namespace Work.Scripts.UI
 {
@@ -48,6 +49,7 @@ namespace Work.Scripts.UI
         public void Throw()
         {
             OnThrew?.Invoke(item.GetItem());
+            Destroy(item.gameObject);
         }
         public void Discard()
         {

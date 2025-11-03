@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 606f1ff4b3e09da4892ac94df3545851, type: 3}
-  m_Name: Test 3
+  m_Name: SkeletonSword
   m_EditorClassIdentifier: 
-  itemType: 1
+  weaponType: 1
   sprite: {fileID: 7307331211696181844, guid: 3d2f179f51453614f935a24a60a198ff, type: 3}
+  weaponName: wwww
+  Tooltip: 
+  Damage: 7
+  maxDurability: 45
   sizeX: 1
   sizeY: 3

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: PlayerSkillListSO
   m_EditorClassIdentifier: 
   playerSkills:
-  - {fileID: 11400000, guid: 43f19e675e3b5b7438b72d93e77e22c6, type: 2}
   - {fileID: 11400000, guid: 2cade0c63acba154f8c10695ef08a901, type: 2}
-  - {fileID: 11400000, guid: 5045dff903548d44ba2c1d17a8ca9b61, type: 2}
+  - {fileID: 11400000, guid: 43f19e675e3b5b7438b72d93e77e22c6, type: 2}
   - {fileID: 11400000, guid: e3ee201fc49873c47835708c6068bec3, type: 2}

@@ -53,5 +53,17 @@ namespace Work.Scripts.UI
         {
             GetComponent<Image>().sprite = icon;
         }
+
+        public void AddClickEvent(UnityAction action)
+        {
+            btn.onClick.AddListener(action);
+        }
+
+        public void RemoveClickEvent(UnityAction action) { btn.onClick.RemoveListener(action); }
+
+        public void ActiveBtn(bool isActive)
+        {
+            btn.interactable = isActive;
+        }
     }
 }
